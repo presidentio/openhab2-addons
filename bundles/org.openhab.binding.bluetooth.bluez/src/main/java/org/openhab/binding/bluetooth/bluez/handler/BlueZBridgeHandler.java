@@ -12,18 +12,6 @@
  */
 package org.openhab.binding.bluetooth.bluez.handler;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.smarthome.core.thing.Bridge;
@@ -38,10 +26,22 @@ import org.openhab.binding.bluetooth.BluetoothAddress;
 import org.openhab.binding.bluetooth.BluetoothDevice;
 import org.openhab.binding.bluetooth.BluetoothDiscoveryListener;
 import org.openhab.binding.bluetooth.bluez.BlueZBluetoothDevice;
+import org.openhab.binding.bluetooth.bluez.BluetoothManagerSingleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import tinyb.BluetoothManager;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The {@link BlueZBridgeHandler} is responsible for talking to the BlueZ stack.
@@ -90,7 +90,7 @@ public class BlueZBridgeHandler extends BaseBridgeHandler implements BluetoothAd
     public void initialize() {
         BluetoothManager manager;
         try {
-            manager = BluetoothManager.getBluetoothManager();
+            manager = BluetoothManagerSingleton.getInstance();
             if (manager == null) {
                 throw new IllegalStateException("Received null BlueZ manager");
             }
